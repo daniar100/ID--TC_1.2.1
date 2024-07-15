@@ -1,6 +1,6 @@
 #Проверка
 # «Создание заказа самовывоз
-# оплата в аптеке авторизированным пользователем оплата в аптеке»
+# оплата в аптеке авторизированным пользователем оплата Kaspi»
 
 from playwright.sync_api import sync_playwright
 import allure
@@ -177,8 +177,8 @@ def test_dos():
                                }''', local_storage_data)
         page.reload()
         page.wait_for_timeout(2000)
-        page.locator(".OrderForm_paymentBlockKaspi__NwO23").click()
-        page.get_by_text("Оформить заказ").click()
+        page.get_by_text("Перейти к оплате").click()
+        page.get_by_text("Подтвердить").click()
         local_storage = page.evaluate('''() => {
                                                                 let data = {};
                                                                 for (let i = 0; i < localStorage.length; i++) {
