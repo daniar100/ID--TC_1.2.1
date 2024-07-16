@@ -1,6 +1,6 @@
 #Проверка
 # «Создание заказа самовывоз
-# оплата в аптеке авторизированным пользователем оплата Kaspi»
+# оплата в аптеке авторизированным пользователем оплата аптека»
 
 from playwright.sync_api import sync_playwright
 import allure
@@ -178,6 +178,13 @@ def test_dos():
         page.reload()
         page.wait_for_timeout(2000)
         page.get_by_text("Перейти к оплате").click()
+        page.wait_for_timeout(2000)
+        page.wait_for_selector(".PaymentMethod_modalContent__Mr1v5")
+        page.wait_for_timeout(2000)
+        page.wait_for_selector(".PaymentMethod_modalCenterContent__pvoPH")
+        # Клик по элементу (не используем nth(2), если элементы динамически меняются)
+        sel = page.locator(".PaymentMethod_modalCenterContent__pvoPH").filter(has_text="В аптеке")
+        sel.click()
         page.get_by_text("Подтвердить").click()
         local_storage = page.evaluate('''() => {
                                                                 let data = {};
